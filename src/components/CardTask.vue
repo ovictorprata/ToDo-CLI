@@ -51,10 +51,7 @@
         ></v-progress-linear>
       </template>
 
-      <v-card-title v-if="tarefaUpdate.title" v-model="tarefaUpdate.title">
-        {{ tarefaUpdate.title }}</v-card-title
-      >
-      <v-card-title v-else>{{ task.title }}</v-card-title>
+      <v-card-title>{{ task.title }}</v-card-title>
 
       <v-card-text class="mb-4">
         <div class="my-4 mb-4 text-subtitle-1">{{ task.project }}</div>
@@ -83,12 +80,25 @@
         <div>
           <v-text-field
             class="ma-6"
-            label="Main input"
+            label="Título"
             hide-details="auto"
             v-model="task.title"
           >
           </v-text-field>
-          <v-text-field label="Another input" class="ma-5"></v-text-field>
+          <v-text-field
+            class="ma-6"
+            label="Categoria"
+            hide-details="auto"
+            v-model="task.project"
+          >
+          </v-text-field>
+          <v-text-field
+            class="ma-6"
+            label="Data"
+            hide-details="auto"
+            v-model="task.dueTo"
+          >
+          </v-text-field>
         </div>
       </template>
     </v-card>
@@ -116,11 +126,6 @@ export default {
   data() {
     return {
       tarefa: {
-        title: null,
-        project: null,
-        dueTo: null,
-      },
-      tarefaUpdate: {
         title: null,
         project: null,
         dueTo: null,
