@@ -1,27 +1,47 @@
 <template>
   <div>
-    <card-task :tarefas="tasks" @send-delete="delecao"> </card-task>
+    <card-task
+      :tasks="tasks"
+      @send-create="createPai"
+      @send-update="updatePai"
+      @send-delete="delecao"
+    >
+    </card-task>
   </div>
 </template>
 
 <script>
 import CardTask from '@/components/CardTask.vue'
-import tasksAPI from '@/api.js'
+import ApiJS from '@/api.js'
 export default {
   components: {
     CardTask,
   },
   data: () => ({
-    tasks: null,
+    tasks: {
+      title: null,
+      project: null,
+      dueTo: null,
+    },
   }),
 
   methods: {
     async delecao(id) {
-      await tasksAPI.deleteTasks(id)
+      await ApiJS.deleteTasks(id)
       this.requestList()
     },
     requestList() {
-      return tasksAPI.getTasks().then((res) => (this.tasks = res.data))
+      return ApiJS.getTasks().then((res) => (this.tasks = res.data))
+    },
+    createPai(tarefa) {
+      return ApiJS.createTask(tarefa).then(() => {
+        this.requestList()
+      })
+    },
+    updatePai(tarefa) {
+      return ApiJS.updateTask(tarefa).then(() => {
+        this.requestList()
+      })
     },
   },
 
